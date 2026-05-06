@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hospital Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h2>Hospital Document System</h2>
+    <button onclick="logout()">Logout</button>
+</header>
+
+<main>
+
+<section>
+    <h3>Add Document</h3>
+
+    <input type="text" id="patient" placeholder="Patient name">
+    <input type="text" id="type" placeholder="Document type">
+
+    <button onclick="addDocument()">Save</button>
+</section>
+
+<section>
+    <h3>Documents</h3>
+    <ul id="list"></ul>
+</section>
+
+<section>
+    <h3>External Hospital Data</h3>
+    <button onclick="loadData()">Load Data</button>
+    <div id="api"></div>
+</section>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
