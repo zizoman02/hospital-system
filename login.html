@@ -1,20 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="login-box">
-    <h2>Hospital System Login</h2>
+    <div class="login-container">
 
-    <input type="text" id="username" placeholder="Username">
+        <div class="login-card">
 
-    <button onclick="login()">Login</button>
-</div>
+            <h1>Hospital Platform</h1>
 
-<script src="auth.js"></script>
+            <input
+                type="text"
+                id="username"
+                placeholder="Enter username"
+            >
+
+            <button onclick="login()">
+                Login
+            </button>
+
+        </div>
+
+    </div>
+
+    <script src="auth.js"></script>
+
 </body>
 </html>

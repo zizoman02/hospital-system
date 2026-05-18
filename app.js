@@ -1,75 +1,150 @@
-let documents = JSON.parse(localStorage.getItem("documents")) || [];
-
-
 const user = sessionStorage.getItem("user");
 
 if (!user) {
     window.location.href = "login.html";
 }
 
+document.getElementById("userDisplay").textContent = user;
 
-function logout() {
-    sessionStorage.clear();
-    window.location.href = "login.html";
+let documents =
+    JSON.parse(localStorage.getItem("documents")) || [];
+
+function updateStats() {
+
+    document.getElementById("totalDocs")
+        .textContent = documents.length;
 }
-
 
 function addDocument() {
 
-    const patient = document.getElementById("patient").value;
-    const type = document.getElementById("type").value;
+    const patient =
+        document.getElementById("patient").value.trim();
 
-    if (!patient || !type) return;
+    const type =
+        document.getElementById("type").value.trim();
 
-    const doc = {
+    if (patient === "" || type === "") {
+        return;
+    }
+
+    const documentData = {
         patient,
         type
     };
 
-    documents.push(doc);
+    documents.push(documentData);
 
-    localStorage.setItem("documents", JSON.stringify(documents));
+    localStorage.setItem(
+        "documents",
+        JSON.stringify(documents)
+    );
 
-    render();
+    renderDocuments();
+
+    document.getElementById("patient").value = "";
+    document.getElementById("type").value = "";
 }
 
+function renderDocuments(filteredDocuments = documents) {
 
-function render() {
+    const list =
+        document.getElementById("documentList");
 
-    const list = document.getElementById("list");
     list.innerHTML = "";
 
-    documents.forEach((d, i) => {
+    filteredDocuments.forEach((doc, index) => {
+
         list.innerHTML += `
             <li>
-                ${d.patient} - ${d.type}
-                <button onclick="removeDoc(${i})">Delete</button>
+                <span>
+                    ${doc.patient} - ${doc.type}
+                </span>
+
+                <button onclick="deleteDocument(${index})">
+                    Delete
+                </button>
             </li>
         `;
     });
+
+    updateStats();
 }
 
-function removeDoc(index) {
+function deleteDocument(index) {
+
     documents.splice(index, 1);
-    localStorage.setItem("documents", JSON.stringify(documents));
-    render();
+
+    localStorage.setItem(
+        "documents",
+        JSON.stringify(documents)
+    );
+
+    renderDocuments();
 }
 
+function searchDocuments() {
 
-function loadData() {
+    const searchValue =
+        document.getElementById("search")
+        .value
+        .toLowerCase();
 
-    fetch("https://jsonplaceholder.typicode.com/users")
-        .then(res => res.json())
-        .then(data => {
+    const filtered =
+        documents.filter(doc =>
+            doc.patient
+                .toLowerCase()
+                .includes(searchValue)
+        );
 
-            let output = "";
+    renderDocuments(filtered);
+}
 
-            data.forEach(user => {
-                output += `<p>${user.name} — ${user.email}</p>`;
-            });
+async function loadData() {
 
-            document.getElementById("api").innerHTML = output;
+    try {
+
+        const response =
+            await fetch(
+                "https://jsonplaceholder.typicode.com/users"
+            );
+
+        const data = await response.json();
+
+        let output = "";
+
+        data.forEach(user => {
+
+            output += `
+                <div class="user-card">
+
+                    <h4>${user.name}</h4>
+
+                    <p>${user.email}</p>
+
+                    <p>${user.company.name}</p>
+
+                </div>
+            `;
         });
+
+        document.getElementById("apiData")
+            .innerHTML = output;
+
+    } catch(error) {
+
+        document.getElementById("apiData")
+            .innerHTML =
+            "Unable to load external data.";
+
+        console.log(error);
+    }
 }
 
-render();
+function logout() {
+
+    sessionStorage.clear();
+
+    window.location.href = "login.html";
+}
+
+renderDocuments();

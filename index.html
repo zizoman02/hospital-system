@@ -1,41 +1,122 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Hospital Dashboard</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
-    <h2>Hospital Document System</h2>
-    <button onclick="logout()">Logout</button>
-</header>
+    <div class="sidebar">
 
-<main>
+        <h2>Hospital System</h2>
 
-<section>
-    <h3>Add Document</h3>
+        <ul>
+            <li>Dashboard</li>
+            <li>Documents</li>
+            <li>Patients</li>
+            <li>External Data</li>
+        </ul>
 
-    <input type="text" id="patient" placeholder="Patient name">
-    <input type="text" id="type" placeholder="Document type">
+        <button onclick="logout()">
+            Logout
+        </button>
 
-    <button onclick="addDocument()">Save</button>
-</section>
+    </div>
 
-<section>
-    <h3>Documents</h3>
-    <ul id="list"></ul>
-</section>
+    <div class="main-content">
 
-<section>
-    <h3>External Hospital Data</h3>
-    <button onclick="loadData()">Load Data</button>
-    <div id="api"></div>
-</section>
+        <div class="topbar">
 
-</main>
+            <h1>Document Management Dashboard</h1>
 
-<script src="app.js"></script>
+            <input
+                type="text"
+                id="search"
+                placeholder="Search patient"
+                onkeyup="searchDocuments()"
+            >
+
+        </div>
+
+        <div class="cards">
+
+            <div class="card stats-card">
+
+                <h3>Total Documents</h3>
+
+                <p id="totalDocs">0</p>
+
+            </div>
+
+            <div class="card stats-card">
+
+                <h3>Connected User</h3>
+
+                <p id="userDisplay"></p>
+
+            </div>
+
+        </div>
+
+        <div class="content-grid">
+
+            <div class="card form-card">
+
+                <h2>Add Document</h2>
+
+                <input
+                    type="text"
+                    id="patient"
+                    placeholder="Patient name"
+                >
+
+                <input
+                    type="text"
+                    id="type"
+                    placeholder="Document type"
+                >
+
+                <button onclick="addDocument()">
+                    Save Document
+                </button>
+
+            </div>
+
+            <div class="card documents-card">
+
+                <h2>Documents List</h2>
+
+                <ul id="documentList"></ul>
+
+            </div>
+
+        </div>
+
+        <div class="card ajax-card">
+
+            <div class="ajax-header">
+
+                <h2>External Hospital Data</h2>
+
+                <button onclick="loadData()">
+                    Load Data
+                </button>
+
+            </div>
+
+            <div id="apiData" class="api-grid"></div>
+
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+
 </body>
 </html>
