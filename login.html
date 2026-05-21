@@ -4,31 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-
+    <title>Login - PulseSync</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
     <div class="login-container">
-
         <div class="login-card">
+            <h1>PulseSync</h1>
+            <p>Hospital Management Platform</p>
 
-            <h1>Hospital Platform</h1>
+            <div class="form-group">
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Enter username"
+                >
+            </div>
 
-            <input
-                type="text"
-                id="username"
-                placeholder="Enter username"
-            >
-
-            <button onclick="login()">
+            <button class="btn-primary" onclick="login()">
                 Login
             </button>
-
         </div>
-
     </div>
 
     <script src="auth.js"></script>
