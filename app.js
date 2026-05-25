@@ -15,8 +15,10 @@ function updateStats() {
 function addDocument() {
     const patient = document.getElementById("patient").value.trim();
     const type = document.getElementById("type").value.trim();
+    
 
     if (patient === "" || type === "") {
+         alert("Please fill all document fields (patient + type)");
         return;
     }
 
